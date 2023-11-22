@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 
 project(Logger VERSION 0.1)
 
+include(CMakePrintHelpers)
 
 # Config file
 set(config_file_name LoggerProjectConfig.h)
@@ -16,7 +17,6 @@ target_compile_features(compiler_flags INTERFACE cxx_std_11)
 target_compile_options(compiler_flags INTERFACE
     "$<${gcc_like_cxx}:$<BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused>>"
     "$<${msvc_cxx}:$<BUILD_INTERFACE:-W3>>")
-
     
 # Add LoggerLib
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Logger)
@@ -42,3 +42,5 @@ if(_COMPILE_EXE)
 else()
     message("Not generate exe (-D_COMPILE_EXE=OFF by default)")
 endif()
+
+cmake_print_variables(TARGETS LoggerLib PROPERTIES POSITION_INDEPENDENT_CODE)

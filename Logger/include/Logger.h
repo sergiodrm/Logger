@@ -4,7 +4,6 @@
 
 namespace Logger
 {
-
     class CLogger
     {
     public:
@@ -14,6 +13,7 @@ namespace Logger
         void ConsoleLog(ELogLevel level, const char* fmt, ...);
 
     private:
+        int PutHeaderLog(ELogLevel level, char* outStr, int count) const;
     };
 
     extern CLogger DefaultLogger;
