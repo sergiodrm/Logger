@@ -20,21 +20,25 @@ target_compile_options(compiler_flags INTERFACE
     
 # Add LoggerLib
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Logger)
-    
-# Testing executable
-set(exe_target_name MainApp)
-add_executable(${exe_target_name} Tests/MainApp.cpp)
-# target_include_directories(${exe_target_name} 
-#     PUBLIC 
-#         "${CMAKE_CURRENT_SOURCE_DIR}/Logger/include"
-# )
-target_include_directories(${exe_target_name}
-    PUBLIC 
-        "${PROJECT_BINARY_DIR}"
-)
-target_link_libraries(${exe_target_name} 
-    PUBLIC 
-        LoggerLib
-    PRIVATE
-        compiler_flags
-)
+
+option(_COMPILE_EXE "Build executable for test" ON)
+
+if(_COMPILE_EXE)
+    # Testing executable
+    set(exe_target_name MainApp)
+    add_executable(${exe_target_name} Tests/MainApp.cpp)
+
+    target_include_directories(${exe_target_name}
+        PUBLIC 
+            "${PROJECT_BINARY_DIR}"
+    )
+    target_link_libraries(${exe_target_name} 
+        PUBLIC 
+            LoggerLib
+        PRIVATE
+            compiler_flags
+    )
+    message("Generate exe in Tests directory (-D_COMPILE_EXE=ON)")
+else()
+    message("Not generate exe (-D_COMPILE_EXE=OFF by default)")
+endif()

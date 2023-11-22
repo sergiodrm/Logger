@@ -9,6 +9,7 @@ message("[${lib_target_name}] SrcDir: ${src_dir}")
 # Set sources
 set(lib_sources 
     ${src_dir}/Logger.cpp
+    ${src_dir}/LoggerTypes.cpp
 )
 
 # Generate Lib
@@ -18,7 +19,7 @@ add_library(${lib_target_name}
 
 # Include directories
 target_include_directories(${lib_target_name}
-    INTERFACE 
+    PUBLIC
         ${include_dir}
 )
 
