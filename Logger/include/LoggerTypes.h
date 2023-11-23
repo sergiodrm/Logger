@@ -2,12 +2,35 @@
 
 namespace Logger
 {
-    enum class ELogLevel
+    namespace LogLevel
     {
-        Info,
-        Ok,
-        Warning,
-        Error
-    };
-    const char* LogLevelToStr(ELogLevel level);
+        enum ELogLevel
+        {
+            Info,
+            Ok,
+            Warning,
+            Error,
+
+            // Don't use externally
+            Count
+        };
+        const char* ToStr(ELogLevel level);
+    }
+
+    namespace LogColor
+    {
+        enum ELogColor
+        {
+            Default,
+            Black,
+            Red,
+            Blue,
+            Green,
+            Yellow,
+            White,
+            Magenta,
+            Cyan
+        };
+        const char* ToStr(ELogColor color);
+    }
 }

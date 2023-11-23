@@ -10,6 +10,7 @@ message("[${lib_target_name}] SrcDir: ${src_dir}")
 set(lib_sources 
     ${src_dir}/Logger.cpp
     ${src_dir}/LoggerTypes.cpp
+    ${src_dir}/LoggerSink.cpp
 )
 
 # Generate Lib

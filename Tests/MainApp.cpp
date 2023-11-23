@@ -1,28 +1,69 @@
 
-
 #include "Logger.h"
 #include <math.h>
+#include <string.h>
 
-int main(int, char**)
+/**
+ * TESTS
+*/
+
+bool TestLevels()
 {
-    Log(Warning, "Prueba sin fmt de warning.\n");
-    LogFmt(Error, "Prueba con fmt de %s %.3f\n", 
-        Logger::LogLevelToStr(Logger::ELogLevel::Error), sqrtf(2.f));
+    Log(Info, "Hola\n");
+    Log(Warning, "Hola\n");
+    Log(Error, "Hola\n");
+    Log(Ok, "Hola\n");
+    return true;
+}
 
-    #ifdef _DEBUG
-    Log(Info, "Debug\n");
-    #elif defined(_NDEBUG)
-    Log(Info, "NDebug\n");
-    #else
-    #error Not config defined
-    #endif
+bool TestChannels()
+{
+    return true;
+}
 
-    char buff[1024];
-    for (int i = 0; i < 500; ++i)
+bool TestMaxBufferSize()
+{
+    return true;
+}
+
+void HandleTestError()
+{
+    // todo
+    Log(Error, "No input test found.\n");
+}
+
+bool DispatchTest(const char* testName)
+{
+    if (!strcmp(testName, "TestLevels"))
+        return TestLevels();
+    if (!strcmp(testName, "TestChannels"))
+        return TestChannels();
+    if (!strcmp(testName, "TestMaxBufferSize"))
+        return TestMaxBufferSize();
+    return false;
+}
+
+
+int main(int argc, char** argv)
+{
+    int result = 0;
+    if (argc >= 2)
     {
-        buff[i] = (char)(i % 27 + 65);
+        for (int i = 1; i < argc; ++i)
+        {
+            if (!DispatchTest(argv[i]))
+            {
+                HandleTestError();
+                result = -1;   
+                break;
+            }
+        }
     }
-    buff[500] = 0;
-    LogFmt(Info, "pruebaaaaa de error %s", buff);
-    return 0;
+    else
+    {
+        Log(Error, "Empty input arguments.\n");
+        result = -1;
+    }
+
+    return result;
 }

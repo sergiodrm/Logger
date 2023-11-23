@@ -44,3 +44,19 @@ else()
 endif()
 
 cmake_print_variables(TARGETS LoggerLib PROPERTIES POSITION_INDEPENDENT_CODE)
+
+
+
+enable_testing()
+
+function(run_test test_name result)
+    add_test(NAME ${test_name} 
+        COMMAND ${exe_target_name} "${test_name}")
+    set_tests_properties(${test_name}
+        PROPERTIES PASS_REGULAR_EXPRESSION ${result})
+endfunction()
+
+run_test(TestLevels "\\[Info\\].*\\[Warning\\].*\\[Error\\].*\\[Ok\\].*")
+run_test(TestChannels ".")
+run_test(TestMaxBufferSize ".")
+

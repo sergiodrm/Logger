@@ -4,14 +4,33 @@
 
 namespace Logger
 {
-    const char* LogLevelToStr(ELogLevel level)
+    const char* LogLevel::ToStr(ELogLevel level)
     {
         switch (level)
         {
-            case ELogLevel::Info: return "Info";
-            case ELogLevel::Ok: return "Ok";
-            case ELogLevel::Warning: return "Warning";
-            case ELogLevel::Error: return "Error";
+            case Info: return "Info";
+            case Ok: return "Ok";
+            case Warning: return "Warning";
+            case Error: return "Error";
+            case Count: return "Count";
+        }
+        return "";
+    }
+
+    const char* LogColor::ToStr(ELogColor color)
+    {
+        switch (color)
+        {
+            case Black: return "Black";
+            case Red: return "Red";
+            case Green: return "Green";
+            case Blue: return "Blue";
+            case Yellow: return "Yellow";
+            case White: return "White";
+            case Magenta: return "Magenta";
+            case Cyan: return "Cyan";
+            case Default: return "Default";
+            default: break;
         }
         return "";
     }

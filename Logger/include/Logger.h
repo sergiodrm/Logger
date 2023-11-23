@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LoggerTypes.h"
+#include "LoggerSink.h"
 
 namespace Logger
 {
@@ -10,14 +11,19 @@ namespace Logger
         CLogger();
         ~CLogger();
 
-        void ConsoleLog(ELogLevel level, const char* fmt, ...);
+        void ConsoleLog(LogLevel::ELogLevel level, const char* fmt, ...);
+
+        void SetLevelColor(LogLevel::ELogLevel level, LogColor::ELogColor color);
 
     private:
-        int PutHeaderLog(ELogLevel level, char* outStr, int count) const;
+        int PutHeaderLog(LogLevel::ELogLevel level, char* outStr, int count) const;
+
+        LogColor::ELogColor m_levelColors[LogLevel::Count];
+        CSink m_consoleSink;
     };
 
     extern CLogger DefaultLogger;
 }
 
-#define Log(level, msg) Logger::DefaultLogger.ConsoleLog(Logger::ELogLevel::level, msg)
-#define LogFmt(level, msg, ...) Logger::DefaultLogger.ConsoleLog(Logger::ELogLevel::level, msg, __VA_ARGS__)
+#define Log(level, msg) Logger::DefaultLogger.ConsoleLog(Logger::LogLevel::level, msg)
+#define LogFmt(level, msg, ...) Logger::DefaultLogger.ConsoleLog(Logger::LogLevel::level, msg, __VA_ARGS__)
